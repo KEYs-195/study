@@ -2,46 +2,34 @@
   <main>
     <div class="container">
       <h1>欢迎使用 Feng 待办事项！</h1>
-      <div class="input-add">
-        <input type="text" name="todo">
-        <button>
-          <i class="plus"></i>
-        </button>
-      </div>
-
-      <div class="filters">
-        <span class="filter active">全部</span>
-        <span class="filter">已完成</span>
-        <span class="filter">未完成</span>
-      </div>
-
-      <div class="todo-list">
-        <div class="todo-item">
-          <label>
-            <input type="checkbox" />
-            Todo 1
-            <span class="check-button"></span>
-          </label>
-          <label>
-            <input type="checkbox" />
-            Todo 2
-            <span class="check-button"></span>
-          </label>
-          <label>
-            <input type="checkbox" />
-            Todo 3
-            <span class="check-button"></span>
-          </label>
-        </div>
-      </div>
+      <TodoAdd :tid="todos.length" @add-todo="addTodo"></TodoAdd>
+      <TodoFilter></TodoFilter>
+      <TodoList :todos=" todos "></TodoList>
     </div>
   </main>
 </template>
 
 <script>
+import { ref } from 'vue';
+import TodoAdd from './components/TodoAdd.vue';
+import TodoFilter from './components/TodoFilter.vue';
+import TodoList from './components/TodoList.vue';
 
 export default {
   name: 'App',
+  components: {
+    TodoAdd,
+    TodoFilter,
+    TodoList
+  },
+  setup() {
+    const todos = ref([]);
+    const addTodo = (todo) => todos.value.push(todo);
+    return {
+      todos,
+      addTodo
+    }
+  }
 }
 </script>
 
@@ -77,60 +65,5 @@ h1 {
   margin: 24px 0;
   font-size: 28px;
   color: #414873;
-}
-
-/* 添加框 */
-.input-add {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-add input {
-  padding: 16px 52px 16px 18px;
-  border-radius: 48px;
-  border: none;
-  outline: none;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  font-size: 16px;
-  color: #626262;
-}
-
-.input-add button {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background-image: linear-gradient(#c0a5f3, #7f95f7);
-  border: none;
-  outline: none;
-
-  color: white;
-  position: absolute;
-  right: 0;
-
-  cursor: pointer;
-}
-
-.input-add .plus {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff);
-  background-size: 50% 2px, 2px 50%;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.filters{
-  display: flex;
-  margin: 24px 2px;
-  color: #c0c2ce;
-  font-size: 14px;
-}
-
-.filters .filter{
-  margin-right: 14px;
-  transition: 0.8s;
 }
 </style>
