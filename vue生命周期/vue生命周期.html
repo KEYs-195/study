@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue生命周期</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        // Vue应用
+        // 生命周期函数：在某个时刻会自动执行的函数
+        // onClick函数会在我们点击的时候被执行（手动执行）
+        const app = Vue.createApp({
+            // 跟组件配置
+            // 数据
+            data() {
+                return {
+                    message: 'Hello Keys195'
+                }
+            },
+
+            methods: {
+                onClick() {
+                    console.log('click');
+                }
+            },
+
+            // Vue实例创建完成之前
+            beforeCreate() {
+                console.log('before Create');
+            },
+
+            // Vue实例创建完毕的时候
+            created() {
+                console.log('created');
+            },
+
+            // 模板渲染到页面之前
+            beforeMount() {
+                console.log('before Mount');
+            },
+
+            // 模板渲染到页面完毕的时候
+            mounted() {
+                console.log('mounted');
+            },
+
+            // 模板
+            template: '<div v-on:click="onClick">{{ message }}</div>'
+        });
+
+        const vm = app.mount('#app');
+    </script>
+</body>
+
+</html>
